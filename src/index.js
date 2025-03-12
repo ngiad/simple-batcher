@@ -1,26 +1,25 @@
-class Smartbatcher<T, K> {
-    private queue: { key: K; resolve: (value: T) => void; reject: (reason?: any) => void }[] = [];
-    private timeout: NodeJS.Timeout | null = null;
+class Smartbatcher {
+    constructor(batchFunction, delay = 800) {
+        this.batchFunction = batchFunction;
+        this.delay = delay;
+        this.queue = [];
+        this.timeout = null;
+    }
 
-    constructor(
-        private batchFunction: (keys: K[]) => Promise<T[]>,
-        private delay: number = 800
-    ) { }
-
-    load(key: K): Promise<T> {
+    load(key) {
         return new Promise((resolve, reject) => {
             this.queue.push({ key, resolve, reject });
             this.scheduleBatch();
         });
     }
 
-    private scheduleBatch() {
+    scheduleBatch() {
         if (!this.timeout) {
             this.timeout = setTimeout(() => this.executeBatch(), this.delay);
         }
     }
 
-    private async executeBatch() {
+    async executeBatch() {
         const currentQueue = this.queue;
         this.queue = [];
         this.timeout = null;
@@ -29,7 +28,7 @@ class Smartbatcher<T, K> {
 
         try {
             const results = await this.batchFunction(keys);
-            const resultMap = new Map<K, T>(results.map(result => [(result as any)._id, result]));
+            const resultMap = new Map(results.map(result => [result?.key, result]));
 
             currentQueue.forEach(item => {
                 const result = resultMap.get(item.key);
