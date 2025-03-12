@@ -1,0 +1,30 @@
+{
+  "name": "simple-batcher",
+  "version": "1.0.0",
+  "description": "A simple batching utility for handling async requests efficiently.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ngiad/simple-batcher.git"
+  },
+  "keywords": [
+    "batching",
+    "optimization",
+    "async"
+  ],
+  "author": "Tran Dai Nghia",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.10",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.6",
+    "typescript": "^5.8.2"
+  }
+}
