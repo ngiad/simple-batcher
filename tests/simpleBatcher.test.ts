@@ -1,43 +1,44 @@
-import Smartbatcher from "../src";
+import SmartBatcher from "../src";
 
-describe("Smartbatcher", () => {
+describe("SmartBatcher", () => {
   test("should batch requests and resolve correctly", async () => {
-    const batchFunction = async (ids: string[]) => {
-      return ids.map(id => ({ _id: id, data: `Data for ${id}` }));
+    const batchFunction = async (keys: number[]) => {
+      return keys.map(key => ({ _id: key, data: `Data for ${key}` }));
     };
 
-    const batcher = new Smartbatcher(batchFunction, 100);
+    const batcher = new SmartBatcher(batchFunction, 100);
 
-    const result1 = batcher.load("123");
-    const result2 = batcher.load("456");
+    const result1 = batcher.load(1);
+    const result2 = batcher.load(2);
 
-    await expect(result1).resolves.toEqual({ _id: "123", data: "Data for 123" });
-    await expect(result2).resolves.toEqual({ _id: "456", data: "Data for 456" });
+    await expect(result1).resolves.toEqual({ _id: 1, data: "Data for 1" });
+    await expect(result2).resolves.toEqual({ _id: 2, data: "Data for 2" });
   });
 
-  test("should reject if ID is not found", async () => {
-    const batchFunction = async (ids: string[]) => {
-      return ids.filter(id => id !== "404").map(id => ({ _id: id, data: `Data for ${id}` }));
+  test("should reject if key is not found", async () => {
+    const batchFunction = async (keys: number[]) => {
+      const validKeys = keys.filter(key => key !== 404);
+      return validKeys.map(key => ({ _id: key, data: `Data for ${key}` })); 
     };
 
-    const batcher = new Smartbatcher(batchFunction, 100);
+    const batcher = new SmartBatcher(batchFunction, 100);
 
-    const result1 = batcher.load("123");
-    const result2 = batcher.load("404"); 
+    const result1 = batcher.load(1);
+    const result2 = batcher.load(404);
 
-    await expect(result1).resolves.toEqual({ _id: "123", data: "Data for 123" });
+    await expect(result1).resolves.toEqual({ _id: 1, data: "Data for 1" });
     await expect(result2).rejects.toThrow("Not found: 404");
   });
 
   test("should handle batch execution delay", async () => {
-    const batchFunction = async (ids: string[]) => {
-      return ids.map(id => ({ _id: id, data: `Data for ${id}` }));
+    const batchFunction = async (keys: string[]) => {
+      return keys.map(key => ({ _id: key, data: `Data for ${key}` })); 
     };
 
-    const batcher = new Smartbatcher(batchFunction, 500);
+    const batcher = new SmartBatcher(batchFunction, 500);
 
     const start = Date.now();
-    const result = batcher.load("789");
+    const result = batcher.load("test-key");
 
     await result;
     const elapsed = Date.now() - start;
