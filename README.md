@@ -1,21 +1,21 @@
-# SimpleBatcher
+# smart-batcher
 
-SimpleBatcher is a lightweight batching utility for managing batched requests efficiently. It helps optimize request handling by grouping multiple requests and processing them together, reducing redundant operations.
+smart-batcher is a lightweight batching utility for managing batched requests efficiently. It helps optimize request handling by grouping multiple requests and processing them together, reducing redundant operations.
 
 ## Installation
 
-You can install SimpleBatcher via npm:
+You can install smart-batcher via npm:
 
 ```sh
-npm install simple-batcher
+npm install smart-batcher
 ```
 
 ## Usage
 
-Here is an example of how to use SimpleBatcher:
+Here is an example of how to use smart-batcher:
 
 ```typescript
-import { SimpleBatcher } from "simple-batcher";
+import Smartbatcher from "smart-batcher";
 
 // Define batch function
 const batchFunction = async (ids: string[]) => {
@@ -23,7 +23,7 @@ const batchFunction = async (ids: string[]) => {
 };
 
 // Create a new batcher instance
-const batcher = new SimpleBatcher(batchFunction, { delay: 100 });
+const batcher = new Smartbatcher(batchFunction, { delay: 100 });
 
 // Use the batcher to fetch data
 const fetchData = async () => {
@@ -39,7 +39,7 @@ fetchData();
 
 ## API
 
-### `new SimpleBatcher(batchFunction, options?)`
+### `new Smartbatcher(batchFunction, options?)`
 
 Creates a new batcher instance.
 
@@ -55,4 +55,4 @@ Queues a request and returns a promise that resolves when the batch is processed
 
 MIT License.
 
-devwebdainghia\@gmail.com
+devwebdainghia@gmail.com

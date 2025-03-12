@@ -9,5 +9,5 @@
     "resolveJsonModule": true,
     "types": ["node", "jest"]
   },
-  "include": ["src", "tests"]
+  "include": ["src", "tests", "index.d.ts"]
 }

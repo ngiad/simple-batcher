@@ -1,12 +1,12 @@
-import { SimpleBatcher } from "../src/index";
+import Smartbatcher from "../src";
 
-describe("SimpleBatcher", () => {
+describe("Smartbatcher", () => {
   test("should batch requests and resolve correctly", async () => {
     const batchFunction = async (ids: string[]) => {
       return ids.map(id => ({ _id: id, data: `Data for ${id}` }));
     };
 
-    const batcher = new SimpleBatcher(batchFunction, 100);
+    const batcher = new Smartbatcher(batchFunction, 100);
 
     const result1 = batcher.load("123");
     const result2 = batcher.load("456");
@@ -20,7 +20,7 @@ describe("SimpleBatcher", () => {
       return ids.filter(id => id !== "404").map(id => ({ _id: id, data: `Data for ${id}` }));
     };
 
-    const batcher = new SimpleBatcher(batchFunction, 100);
+    const batcher = new Smartbatcher(batchFunction, 100);
 
     const result1 = batcher.load("123");
     const result2 = batcher.load("404"); 
@@ -34,7 +34,7 @@ describe("SimpleBatcher", () => {
       return ids.map(id => ({ _id: id, data: `Data for ${id}` }));
     };
 
-    const batcher = new SimpleBatcher(batchFunction, 500);
+    const batcher = new Smartbatcher(batchFunction, 500);
 
     const start = Date.now();
     const result = batcher.load("789");
