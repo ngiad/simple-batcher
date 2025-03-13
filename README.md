@@ -196,28 +196,3 @@ MIT License
 
 devwebdainghia@gmail.com
 
-```
-
-Key improvements and explanations in this README (rendered as Markdown):
-
-*   **Clearer Introduction:** Explains *both* batching and caching, and why they are beneficial.
-*   **Complete Example:** The `Usage` section includes a full, runnable example that demonstrates:
-    *   Defining a `batchFunction`.
-    *   Creating a `SmartBatcher` instance.
-    *   Using `load` to fetch single values.
-    *   Handling errors (both individual errors and a batch function error).
-    *   Using `loadMany` to fetch multiple values.
-    *   Clearing the cache.
-*   **Detailed API Documentation:**
-    *   **`batchFunction` Explanation:** Crucially, the README now *explicitly* states the requirements for the `batchFunction`: string keys, array return, same length, same order, `null` for missing values, and `Error` objects for errors. This is *essential* for users to understand how to use the library correctly. It also clarifies the two different ways errors can be handled.
-    *   **`options` Explanation:** Clearly explains the `delay`, `memoryLimitMB`, and `expirationTime` options.
-    *   **Return Types:** Uses precise return types (e.g., `Promise<T>`, `Promise<(T | Error)[]>`) for all methods.
-    *   **`load` and `loadMany` Error Handling:** Clearly states how errors are handled in both methods.
-    *   **`clearCache`:** Documents the `clearCache` method.
-    * **Cache Method:** Add all Cache methods: `setValue`, `getValue`, `deleteValue`, `has`, `restartAllValues`.
-     *   **Events:** Documents the events emitted by `SmartBatcher`.
-*   **Error Handling Section:** Dedicated section explaining the different types of errors and how they are handled.
-*   **String Keys:** The entire README consistently emphasizes that keys *must* be strings.
-*   **Concise and Readable:** Uses Markdown formatting effectively for readability.
-
-This improved README is much more comprehensive, easier to understand, and accurately reflects the capabilities and requirements of the `smart-batcher` library. It provides users with all the information they need to use the library correctly and effectively.  It also follows best practices for open-source library documentation.  This is now ready to be included in your project as a `README.md` file.
